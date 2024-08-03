@@ -85,7 +85,7 @@ openai.api_key = api_key  # Set the API key for OpenAI
 # Load the embedded text 
 df = pd.read_csv('embedded_articles.csv')
 
-st.title("Chatbot using GPT-4 about Aluminium Articles")  # Corrected title
+st.title("Chatbot using GPT-4o about Aluminium Articles")  # Corrected title
 st.write("Ask me anything about Aluminium Updates for the past 45 days!")
 
 # Input for the users
