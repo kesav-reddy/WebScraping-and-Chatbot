@@ -10,7 +10,11 @@ from sklearn.metrics.pairwise import cosine_similarity
 api_key = st.secrets["api_key"]
 
 # Create an OpenAI client
-openai.api_key = api_key
+#openai.api_key = api_key
+
+client = OpenAI(
+    api_key="api_key",
+)
 
 # Load the embedded text 
 df = pd.read_csv('embedded_articles.csv')
@@ -23,7 +27,7 @@ user_input = st.text_input("You:", "")
 
 # Function to get a response from GPT-4
 def get_response(prompt, context):
-    response = openai.ChatCompletion.create(
+    response = client.ChatCompletion.create(
         model="gpt-4",
         messages=[
             {"role": "user", "content": f"{context}\n\n{prompt}"}
@@ -34,7 +38,7 @@ def get_response(prompt, context):
 # Function to find the most relevant article
 def find_most_relevant_article(user_query):
     # Create an embedding for the user's query
-    response = openai.Embedding.create(
+    response = client.Embedding.create(
         input=user_query,
         model="text-embedding-ada-002"
     )
