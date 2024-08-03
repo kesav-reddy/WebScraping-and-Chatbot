@@ -8,12 +8,12 @@ from dotenv import load_dotenv
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Loading the API key 
-load_dotenv('/Users/kesavreddy/Downloads/College/College/Actalyst/API_Key.env')
+load_dotenv('API_Key.env')
 api_key = os.getenv("API_KEY")
 client = OpenAI(api_key=api_key)
 
 # Loading the embedded text 
-df = pd.read_csv('/Users/kesavreddy/Downloads/College/College/Actalyst/embedded_articles.csv')
+df = pd.read_csv('embedded_articles.csv')
 
 st.title("Chatbot using GPT-4o about Aluminium Articles")
 st.write("Ask me anything about Aluminium Updates for the past 45 days!")
