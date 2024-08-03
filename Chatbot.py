@@ -3,7 +3,7 @@ import json
 import pandas as pd
 import numpy as np
 import streamlit as st
-import openai  # Importing OpenAI directly
+import openai  # Import OpenAI directly
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Retrieve the API key from Streamlit secrets
@@ -15,7 +15,7 @@ openai.api_key = api_key
 # Load the embedded text 
 df = pd.read_csv('embedded_articles.csv')
 
-st.title("Chatbot using GPT-4o about Aluminium Articles")  # Corrected title
+st.title("Chatbot using GPT-4 about Aluminium Articles")  # Corrected title
 st.write("Ask me anything about Aluminium Updates for the past 45 days!")
 
 # Input for the users
@@ -33,6 +33,7 @@ def get_response(prompt, context):
 
 # Function to find the most relevant article
 def find_most_relevant_article(user_query):
+    # Create an embedding for the user's query
     response = openai.Embedding.create(
         input=user_query,
         model="text-embedding-ada-002"
@@ -50,20 +51,22 @@ def find_most_relevant_article(user_query):
 
 # When the user presses Enter
 if user_input:
-    relevant_article = find_most_relevant_article(user_input)
-    context = (
-        f"You are a knowledgeable assistant about Aluminium articles. "
-        f"Here is an article that may be relevant:\n"
-        f"Title: {relevant_article['title']}\n"
-        f"Description: {relevant_article['description']}\n"
-        f"Date: {relevant_article['date']}\n"
-        f"Link: {relevant_article['link']}\n"
-        "Please provide specific information or answer the user's question based on the article."
-    )
-    
-    response = get_response(user_input, context)
-    st.write(f"Bot: {response}")
-
+    try:
+        relevant_article = find_most_relevant_article(user_input)
+        context = (
+            f"You are a knowledgeable assistant about Aluminium articles. "
+            f"Here is an article that may be relevant:\n"
+            f"Title: {relevant_article['title']}\n"
+            f"Description: {relevant_article['description']}\n"
+            f"Date: {relevant_article['date']}\n"
+            f"Link: {relevant_article['link']}\n"
+            "Please provide specific information or answer the user's question based on the article."
+        )
+        
+        response = get_response(user_input, context)
+        st.write(f"Bot: {response}")
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
 
 
 # import os
