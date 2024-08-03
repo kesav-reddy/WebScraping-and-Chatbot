@@ -7,10 +7,15 @@ from openai import OpenAI
 from dotenv import load_dotenv
 from sklearn.metrics.pairwise import cosine_similarity
 
-# Loading the API key 
-load_dotenv('API_Key.env')
-api_key = os.getenv("API_KEY")
-client = OpenAI(api_key=api_key)
+# # Loading the API key 
+# load_dotenv('API_Key.env')
+# api_key = os.getenv("API_KEY")
+# client = OpenAI(api_key=api_key)
+api_key = st.secrets["openai"]["api_key"]
+
+# Create an OpenAI client
+openai.api_key = api_key
+
 
 # Loading the embedded text 
 df = pd.read_csv('embedded_articles.csv')
