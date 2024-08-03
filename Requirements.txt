@@ -1,7 +1,7 @@
 pandas
 numpy
 streamlit
-openai
+openai == 1.38.0
 python-dotenv
 scikit-learn
 selenium
